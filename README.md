@@ -1,54 +1,164 @@
-# React + TypeScript + Vite
+# VSCode Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A personal portfolio website built with React and TypeScript, styled to look and feel like Visual Studio Code. This project creates an interactive and familiar development environment to showcase your skills, projects, and experience.
 
-Currently, two official plugins are available:
+![VSCode Portfolio Screenshot](screenshot.png)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+### Core Features
+- **VS Code-Like Navigation Tabs**
+  - Open, close, and switch between different sections of the portfolio
+  - Visual styling that matches VS Code's tab interface
+  - Active tab highlighting
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Interactive File Explorer**
+  - Sidebar with expandable folder structure
+  - Navigate through different sections by clicking on files
+  - Familiar VS Code-style icons and layout
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+- **Tab Management**
+  - Close tabs with a click
+  - Reopen previously closed tabs
+  - Drag and reorder tabs
+  - Remember open tabs between sessions
+
+- **Search Functionality**
+  - Search bar to quickly find and navigate to content
+  - Filter through projects, skills, or other portfolio content
+  - Keyboard shortcuts for quick access
+
+### Planned Features
+- **Split View**
+  - View multiple sections side by side
+  - Resizable panes
+  - Drag tabs between panes
+
+- **Theme Support**
+  - Switch between light and dark themes
+  - Add custom VS Code themes
+  - Remember preferred theme setting
+
+- **Terminal Integration**
+  - Interactive terminal component
+  - Run simple commands to navigate or display information
+  - Easter eggs and interactive demos
+
+## Technology Stack
+
+- **Frontend**: React 19 with TypeScript
+- **State Management**: Zustand
+- **Styling**: TailwindCSS 4
+- **Build Tool**: Vite 6
+- **Package Manager**: pnpm
+
+## Getting Started
+
+### Prerequisites
+- Node.js (v18 or higher)
+- pnpm (v8 or higher)
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/vscode-portfolio.git
+   cd vscode-portfolio
+   ```
+
+2. Install dependencies:
+   ```bash
+   pnpm install
+   ```
+
+3. Start the development server:
+   ```bash
+   pnpm dev
+   ```
+
+4. Build for production:
+   ```bash
+   pnpm build
+   ```
+
+## Project Structure
+
+```
+vscode-portfolio/
+├── public/               # Static assets
+├── src/
+│   ├── assets/           # Images and other assets
+│   ├── components/       # React components
+│   │   ├── Explorer/     # Side bar file explorer components
+│   │   ├── Tabs/         # Tab navigation components
+│   │   └── Terminal/     # Terminal component (planned)
+│   ├── pages/            # Portfolio content pages
+│   ├── stores/           # Zustand state management
+│   ├── types/            # TypeScript type definitions
+│   ├── utils/            # Utility functions
+│   ├── App.tsx           # Main application component
+│   └── main.tsx          # Application entry point
+├── index.html            # HTML template
+└── package.json          # Project dependencies and scripts
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Customization
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Adding New Tabs/Pages
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+1. Define a new tab in the `useStore.ts` file:
+   ```typescript
+   const initialTabs = [
+     // existing tabs
+     { id: 'new-tab', title: 'New Tab', extension: 'tsx', icon: '📄', isActive: false },
+   ];
+   ```
+
+2. Add the corresponding content in your `App.tsx` or create a dedicated component
+
+### Adding Projects
+
+Create new project entries in your projects data file and they will automatically appear in the projects section.
+
+### Customizing Theme
+
+Modify the TailwindCSS configuration to change colors, spacing, and other design elements.
+
+## Deployment
+
+This project can be deployed to any static hosting service:
+
+- Vercel
+- Netlify
+- GitHub Pages
+- AWS S3 + CloudFront
+
+### Example deployment with Vercel:
+
+```bash
+# Install Vercel CLI
+npm install -g vercel
+
+# Deploy
+vercel
 ```
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the project
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Acknowledgments
+
+- Inspired by Visual Studio Code
+- Tab system based on VS Code's tab management
+- Icons and design elements styled to match the VS Code interface
