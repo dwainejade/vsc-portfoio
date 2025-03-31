@@ -1,13 +1,15 @@
-// src/store/useTabStore.ts
+// src/stores/useStore.ts
 import { create } from 'zustand';
 import { Tab } from '../types/tab';
 
 interface TabState {
   tabs: Tab[];
   activeTabId: string;
+  recentlyClosed: Omit<Tab, 'isActive'>[];
   setActiveTab: (tabId: string) => void;
   closeTab: (tabId: string) => void;
   openTab: (tab: Omit<Tab, 'isActive'>) => void;
+  reopenLastClosedTab: () => void;
 }
 
 const initialTabs: Tab[] = [
@@ -20,6 +22,7 @@ const initialTabs: Tab[] = [
 export const useStore = create<TabState>((set) => ({
   tabs: initialTabs,
   activeTabId: 'home',
+  recentlyClosed: [],
   
   setActiveTab: (tabId: string) => set((state) => ({
     activeTabId: tabId,
@@ -36,6 +39,7 @@ export const useStore = create<TabState>((set) => ({
     }
     
     const isClosingActiveTab = tabId === state.activeTabId;
+    const tabToClose = state.tabs.find(tab => tab.id === tabId);
     const filteredTabs = state.tabs.filter(tab => tab.id !== tabId);
     
     // If closing the active tab, activate another tab
@@ -45,9 +49,15 @@ export const useStore = create<TabState>((set) => ({
       filteredTabs[0] = { ...filteredTabs[0], isActive: true };
     }
     
+    // Add the closed tab to the recently closed list
+    const updatedRecentlyClosed = tabToClose 
+      ? [{ id: tabToClose.id, title: tabToClose.title, extension: tabToClose.extension, icon: tabToClose.icon }, ...state.recentlyClosed.slice(0, 9)]
+      : state.recentlyClosed;
+    
     return {
       tabs: filteredTabs,
-      activeTabId: newActiveTabId
+      activeTabId: newActiveTabId,
+      recentlyClosed: updatedRecentlyClosed
     };
   }),
   
@@ -73,6 +83,43 @@ export const useStore = create<TabState>((set) => ({
           isActive: false
         })).concat({
           ...tab,
+          isActive: true
+        })
+      };
+    }
+  }),
+  
+  reopenLastClosedTab: () => set((state) => {
+    // If no recently closed tabs, return current state
+    if (state.recentlyClosed.length === 0) {
+      return state;
+    }
+    
+    const [tabToReopen, ...remainingRecentlyClosed] = state.recentlyClosed;
+    
+    // Check if tab already exists (might have been reopened already)
+    const existingTab = state.tabs.find(t => t.id === tabToReopen.id);
+    
+    if (existingTab) {
+      // If it exists, just activate it and remove from recently closed
+      return {
+        activeTabId: tabToReopen.id,
+        recentlyClosed: remainingRecentlyClosed,
+        tabs: state.tabs.map(t => ({
+          ...t,
+          isActive: t.id === tabToReopen.id
+        }))
+      };
+    } else {
+      // If it doesn't exist, add it and remove from recently closed
+      return {
+        activeTabId: tabToReopen.id,
+        recentlyClosed: remainingRecentlyClosed,
+        tabs: state.tabs.map(t => ({
+          ...t,
+          isActive: false
+        })).concat({
+          ...tabToReopen,
           isActive: true
         })
       };
