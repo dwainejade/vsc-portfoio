@@ -1,0 +1,52 @@
+// src/components/Tab.tsx
+import React from 'react';
+import { Tab as TabType } from '../types/tab';
+import  useStore  from '../stores/useStore';
+
+interface TabProps extends Omit<TabType, 'isActive'> {
+  isActive: boolean;
+}
+
+const Tab: React.FC<TabProps> = ({ 
+  id, 
+  title, 
+  extension, 
+  icon, 
+  isActive
+}) => {
+  const { setActiveTab, closeTab } = useStore();
+
+  const handleTabClick = () => {
+    setActiveTab(id);
+  };
+
+  const handleTabClose = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    closeTab(id);
+  };
+
+  return (
+    <div 
+      className={`
+        flex items-center h-9 px-4 cursor-pointer whitespace-nowrap select-none
+        border-r border-[#1e1e1e] relative
+        ${isActive ? 'bg-[#1e1e1e] border-t-2 border-t-[#007acc]' : 'bg-[#2d2d2d]'}
+      `}
+      onClick={handleTabClick}
+    >
+      <div className="w-4 h-4 flex items-center justify-center mr-2">
+        {icon}
+      </div>
+      <span className="mr-1">{title}</span>
+      <span className="opacity-60">.{extension}</span>
+      <div 
+        className="ml-2 w-4 h-4 flex items-center justify-center rounded hover:bg-[rgba(255,255,255,0.1)]"
+        onClick={handleTabClose}
+      >
+        ✕
+      </div>
+    </div>
+  );
+};
+
+export default Tab;
