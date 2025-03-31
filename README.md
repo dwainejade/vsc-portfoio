@@ -2,8 +2,6 @@
 
 A personal portfolio website built with React and TypeScript, styled to look and feel like Visual Studio Code. This project creates an interactive and familiar development environment to showcase your skills, projects, and experience.
 
-![VSCode Portfolio Screenshot](screenshot.png)
-
 ## Features
 
 ### Core Features
