@@ -1,26 +1,51 @@
 // src/components/VSCodeIcon.tsx
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 export type VSCodeIconName = 
-  | 'chevron-down' 
-  | 'chevron-up' 
-  | 'chevron-left' 
-  | 'chevron-right' 
-  | 'folder' 
+  | 'chevron-down'
+  | 'chevron-up'
+  | 'chevron-left'
+  | 'chevron-right'
+  | 'folder'
   | 'folder-opened'
-  | 'folder-active' 
-  | 'code' 
-  | 'account' 
-  | 'mail' 
-  | 'mail-read' 
-  | 'bookmark' 
-  | 'add' 
-  | 'check' 
-  | 'checklist' 
-  | 'cloud' 
-  | 'cloud-upload' 
-  | 'file-media' 
+  | 'folder-active'
+  | 'code'
+  | 'account'
+  | 'mail'
+  | 'mail-read'
+  | 'bookmark'
+  | 'add'
+  | 'check'
+  | 'checklist'
+  | 'cloud'
+  | 'cloud-upload'
+  | 'file-media'
   | 'repo';
+
+// Use Vite's import.meta.glob to dynamically import all SVG files
+const darkIconModules = import.meta.glob('../assets/icons/dark/*.svg', { eager: true });
+const lightIconModules = import.meta.glob('../assets/icons/light/*.svg', { eager: true });
+
+// Create icon maps from the dynamically imported modules
+const darkIcons: Record<string, string> = {};
+const lightIcons: Record<string, string> = {};
+
+// Process dark theme icons
+Object.entries(darkIconModules).forEach(([path, module]) => {
+  // Extract the icon name from the path (e.g., '../assets/icons/dark/code.svg' -> 'code')
+  const match = path.match(/\/([^/]+)\.svg$/);
+  if (match && match[1]) {
+    darkIcons[match[1]] = (module as any).default;
+  }
+});
+
+// Process light theme icons
+Object.entries(lightIconModules).forEach(([path, module]) => {
+  const match = path.match(/\/([^/]+)\.svg$/);
+  if (match && match[1]) {
+    lightIcons[match[1]] = (module as any).default;
+  }
+});
 
 interface VSCodeIconProps {
   name: VSCodeIconName;
@@ -28,162 +53,28 @@ interface VSCodeIconProps {
   theme?: 'dark' | 'light';
 }
 
-/**
- * VS Code Icon Component
- * This component provides SVG paths for common VS Code icons
- */
 const VSCodeIcon: React.FC<VSCodeIconProps> = ({ 
   name, 
   className = '', 
   theme = 'dark' 
 }) => {
-  // Function to get SVG path content based on icon name
-  const getIconPath = (iconName: VSCodeIconName): JSX.Element => {
-    // The fill color is set to "currentColor" to inherit from text color
-    const fillColor = theme === 'dark' ? 'currentColor' : 'currentColor';
-    
-    switch (iconName) {
-      case 'chevron-down':
-        return (
-          <path 
-            fillRule="evenodd" 
-            clipRule="evenodd" 
-            d="M7.97612 10.0719L12.3334 5.7146L12.9521 6.33332L8.28548 11L7.66676 11L3.0001 6.33332L3.61882 5.7146L7.97612 10.0719Z" 
-            fill={fillColor} 
-          />
-        );
-      
-      case 'chevron-up':
-        return (
-          <path 
-            fillRule="evenodd" 
-            clipRule="evenodd" 
-            d="M8.02388 5.92809L3.66657 10.2854L3.04785 9.66668L7.71452 5.00001L8.33324 5.00001L12.9999 9.66668L12.3812 10.2854L8.02388 5.92809Z" 
-            fill={fillColor} 
-          />
-        );
-      
-      case 'chevron-left':
-        return (
-          <path 
-            fillRule="evenodd" 
-            clipRule="evenodd" 
-            d="M5.92809 7.97603L10.2854 12.3333L9.66668 12.9521L5.00001 8.28539V7.66667L9.66668 3L10.2854 3.61872L5.92809 7.97603Z" 
-            fill={fillColor} 
-          />
-        );
-      
-      case 'chevron-right':
-        return (
-          <path 
-            fillRule="evenodd" 
-            clipRule="evenodd" 
-            d="M10.0719 8.02397L5.7146 3.66666L6.33332 3.04794L11 7.71461V8.33333L6.33332 13L5.7146 12.3813L10.0719 8.02397Z" 
-            fill={fillColor} 
-          />
-        );
-      
-      case 'folder':
-      case 'folder-opened':
-        return (
-          <path 
-            d="M1.5 14H12.5L12.98 13.63L15.61 6.63L15.13 6H14V3.5L13.5 3H7.70996L6.84998 2.15002L6.5 2H1.5L1 2.5V13.5L1.5 14ZM2 3H6.29004L7.15002 3.84998L7.5 4H13V6H8.5L8.15002 6.15002L7.29004 7H3.5L3.03003 7.33997L2.03003 10.42L2 3ZM12.13 13H2.18994L3.85999 8H7.5L7.84998 7.84998L8.70996 7H14.5L12.13 13Z" 
-            fill={fillColor} 
-          />
-        );
-      
-      case 'folder-active':
-        return (
-          <>
-            <path 
-              fillRule="evenodd" 
-              clipRule="evenodd" 
-              d="M7.71014 3H14.5002L15.0102 3.5V8.00717C14.6997 7.77276 14.3611 7.57372 14.0002 7.41604V5.98999H7.69012L6.83014 6.84998L6.48016 7H1.99017V7.48999V11.49V13H7.1002C7.1708 13.3478 7.2775 13.6825 7.41623 14H1.51019L1.01019 13.5V6.5V2.5L1.51019 2H6.51019L6.86017 2.15002L7.71014 3ZM7.49017 5H13.9902L14.0002 4.01001H7.50018L7.1402 3.85999L6.29022 3.01001H2.00018V6.01001H6.28021L7.1402 5.15002L7.49017 5Z" 
-              fill={fillColor}
-            />
-            <path 
-              fillRule="evenodd" 
-              clipRule="evenodd" 
-              d="M9.7779 8.67412C10.4357 8.2346 11.2091 8 12.0002 8C13.0607 8.0013 14.0773 8.42315 14.8272 9.17301C15.577 9.92287 15.9989 10.9395 16.0002 12C16.0002 12.7911 15.7656 13.5645 15.3261 14.2223C14.8865 14.8801 14.2618 15.3928 13.5309 15.6955C12.8 15.9983 11.9957 16.0775 11.2198 15.9231C10.4439 15.7688 9.73117 15.3878 9.17176 14.8284C8.61235 14.269 8.23138 13.5563 8.07704 12.7804C7.9227 12.0044 8.00192 11.2002 8.30467 10.4693C8.60742 9.73836 9.12011 9.11365 9.7779 8.67412ZM11.9089 13.6637L14.2952 10.4818L13.4952 9.88184L11.4184 12.651L10.1167 11.6096L9.49197 12.3905L11.1965 13.7541L11.9089 13.6637Z" 
-              fill={theme === 'dark' ? "#388A34" : "#388A34"}
-            />
-          </>
-        );
-      
-      case 'code':
-        return (
-          <path 
-            d="M4.708 5.578L2.061 8.224L4.708 10.87L4 11.578L1 8.578V7.87L4 4.87L4.708 5.578ZM11.708 4.87L11 5.578L13.647 8.224L11 10.87L11.708 11.578L14.708 8.578V7.87L11.708 4.87ZM4.908 13L5.802 13.448L10.802 3.448L9.908 3L4.908 13Z" 
-            fill={fillColor}
-          />
-        );
-      
-      case 'file-media':
-        return (
-          <path 
-            fillRule="evenodd" 
-            clipRule="evenodd" 
-            d="M2 2H8V5.5L8.5 6H12V7H13V4.8L12.85 4.44L9.57 1.14L9.22 1H1.5L1 1.5V14.5L1.5 15H5V14H2V2ZM9 2L12 5H9V2ZM14.5 8H6.5L6 8.5V14.5L6.5 15H14.5L15 14.5V8.5L14.5 8ZM14 9V13L12.37 11.4H11.66L10.5 12.57L8.37 10.44H7.66L7 11.1V9H14ZM11.2 13.27L12.01 12.46L13.55 14H11.93L11.2 13.27ZM7 14V12.51L8 11.51L10.52 14H7ZM12.5 10.5C12.7761 10.5 13 10.2761 13 10C13 9.72386 12.7761 9.5 12.5 9.5C12.2239 9.5 12 9.72386 12 10C12 10.2761 12.2239 10.5 12.5 10.5Z" 
-            fill={fillColor}
-          />
-        );
-      
-      case 'repo':
-        return (
-          <path 
-            fillRule="evenodd" 
-            clipRule="evenodd" 
-            d="M14.0001 10V1.5L13.5001 1H3.74009C3.51074 1.00254 3.28375 1.04658 3.07009 1.13C2.85473 1.22571 2.66064 1.36346 2.49922 1.53518C2.33781 1.7069 2.21231 1.90913 2.13009 2.13C2.0483 2.3267 2.0042 2.53701 2.00009 2.75V12.25C1.99769 12.4798 2.04191 12.7078 2.13009 12.92C2.30724 13.3473 2.64465 13.6883 3.07009 13.87C3.28375 13.9534 3.51074 13.9975 3.74009 14H4.00009V13H3.74009C3.64031 13.0003 3.54156 12.9799 3.45009 12.94C3.26905 12.8649 3.12519 12.721 3.05009 12.54C3.01814 12.4466 3.00126 12.3487 3.00009 12.25V11.75C3.00126 11.6513 3.01814 11.5534 3.05009 11.46C3.12519 11.279 3.26905 11.1351 3.45009 11.06C3.54019 11.0207 3.63735 11.0003 3.73561 11H3.74009H4.00009H13.0001V13H9.00009V14H13.5001L14.0001 13.5V11V10ZM4.00009 10V2H13.0001V10H4.00009ZM5.00009 3H6.00009V4H5.00009V3ZM5.00009 5H6.00009V6H5.00009V5ZM6.00009 7H5.00009V8H6.00009V7ZM6.50009 13.49L5.28009 15H5.00009V12H8.00009V15H7.72009L6.50009 13.49Z" 
-            fill={fillColor}
-          />
-        );
-      
-      case 'add':
-        return (
-          <path 
-            d="M14.0001 7V8H8.00012V14H7.00012V8H1.00012V7H7.00012V1H8.00012V7H14.0001Z" 
-            fill={fillColor}
-          />
-        );
-      
-      case 'account':
-        return (
-          <path 
-            d="M16 7.99201C16 3.58042 12.416 0 8 0C3.584 0 0 3.58042 0 7.99201C0 10.4216 1.104 12.6114 2.832 14.0819C2.848 14.0979 2.864 14.0979 2.864 14.1139C3.008 14.2258 3.152 14.3377 3.312 14.4496C3.392 14.4975 3.456 14.5614 3.536 14.6254C4.816 15.4885 6.352 16 8.016 16C9.68 16 11.216 15.4885 12.496 14.6254C12.576 14.5774 12.64 14.5135 12.72 14.4655C12.864 14.3536 13.024 14.2418 13.168 14.1299C13.184 14.1139 13.2 14.1139 13.2 14.0979C14.896 12.6114 16 10.4216 16 7.99201ZM8 14.993C6.496 14.993 5.12 14.5135 3.984 13.7143C4 13.5864 4.032 13.4585 4.064 13.3307C4.16 12.979 4.304 12.6434 4.48 12.3397C4.656 12.036 4.864 11.7642 5.12 11.5245C5.36 11.2847 5.648 11.0609 5.936 10.8851C6.24 10.7093 6.56 10.5814 6.912 10.4855C7.264 10.3896 7.632 10.3417 8 10.3417C8.592 10.3417 9.136 10.4535 9.632 10.6613C10.128 10.8691 10.56 11.1568 10.928 11.5085C11.296 11.8761 11.584 12.3077 11.792 12.8032C11.904 13.0909 11.984 13.3946 12.032 13.7143C10.88 14.5135 9.504 14.993 8 14.993ZM5.552 7.59241C5.408 7.27273 5.344 6.92108 5.344 6.56943C5.344 6.21778 5.408 5.86613 5.552 5.54645C5.696 5.22677 5.888 4.93906 6.128 4.6993C6.368 4.45954 6.656 4.26773 6.976 4.12388C7.296 3.98002 7.648 3.91608 8 3.91608C8.368 3.91608 8.704 3.98002 9.024 4.12388C9.344 4.26773 9.632 4.45954 9.872 4.6993C10.112 4.93906 10.304 5.22677 10.448 5.54645C10.592 5.86613 10.656 6.21778 10.656 6.56943C10.656 6.93706 10.592 7.27273 10.448 7.59241C10.304 7.91209 10.112 8.1998 9.872 8.43956C9.632 8.67932 9.344 8.87113 9.024 9.01499C8.384 9.28671 7.6 9.28671 6.96 9.01499C6.64 8.87113 6.352 8.67932 6.112 8.43956C5.872 8.1998 5.68 7.91209 5.552 7.59241ZM12.976 12.8991C12.976 12.8671 12.96 12.8511 12.96 12.8192C12.8 12.3237 12.576 11.8442 12.272 11.4126C11.968 10.981 11.616 10.5974 11.184 10.2777C10.864 10.038 10.512 9.83017 10.144 9.67033C10.32 9.55844 10.48 9.41459 10.608 9.28671C10.848 9.04695 11.056 8.79121 11.232 8.5035C11.408 8.21578 11.536 7.91209 11.632 7.57642C11.728 7.24076 11.76 6.90509 11.76 6.56943C11.76 6.04196 11.664 5.54645 11.472 5.0989C11.28 4.65135 11.008 4.25175 10.656 3.9001C10.32 3.56444 9.904 3.29271 9.456 3.1009C9.008 2.90909 8.512 2.81319 7.984 2.81319C7.456 2.81319 6.96 2.90909 6.512 3.1009C6.064 3.29271 5.648 3.56444 5.312 3.91608C4.976 4.25175 4.704 4.66733 4.512 5.11489C4.32 5.56244 4.224 6.05794 4.224 6.58541C4.224 6.93706 4.272 7.27273 4.368 7.59241C4.464 7.92807 4.592 8.23177 4.768 8.51948C4.928 8.80719 5.152 9.06294 5.392 9.3027C5.536 9.44655 5.696 9.57443 5.872 9.68631C5.488 9.86214 5.136 10.0699 4.832 10.3097C4.416 10.6294 4.048 11.013 3.744 11.4286C3.44 11.8601 3.216 12.3237 3.056 12.8352C3.04 12.8671 3.04 12.8991 3.04 12.9151C1.776 11.6364 0.992 9.91009 0.992 7.99201C0.992 4.13986 4.144 0.991009 8 0.991009C11.856 0.991009 15.008 4.13986 15.008 7.99201C15.008 9.91009 14.224 11.6364 12.976 12.8991Z" 
-            fill={fillColor}
-          />
-        );
-      
-      // Add other icons as needed
-      
-      default:
-        // Default pattern for missing icons
-        return (
-          <rect 
-            x="2" 
-            y="2" 
-            width="12" 
-            height="12" 
-            rx="2" 
-            fill="none" 
-            stroke={fillColor}
-            strokeWidth="1"
-          />
-        );
-    }
-  };
+  // Select the appropriate icon based on the theme
+  const icons = theme === 'dark' ? darkIcons : lightIcons;
+  const iconSrc = icons[name];
+  
+  if (!iconSrc) {
+    console.warn(`Icon "${name}" not found for theme "${theme}"`);
+    return <span className={`inline-block ${className}`}></span>;
+  }
 
   return (
-    <svg 
-      width="16" 
-      height="16" 
-      viewBox="0 0 16 16" 
-      fill="none" 
-      xmlns="http://www.w3.org/2000/svg"
-      className={`inline-block ${className}`}
-    >
-      {getIconPath(name)}
-    </svg>
+    <span className={`inline-block ${className}`}>
+      <img 
+        src={iconSrc} 
+        alt={`${name} icon`}
+        className="w-full h-full"
+      />
+    </span>
   );
 };
 

@@ -6,7 +6,7 @@ import ProjectsContent from './content/ProjectsContent';
 import ContactContent from './content/ContactContent';
 import BlogPost1 from './content/BlogPost1';
 import BlogPost2 from './content/BlogPost2';
-import VSCodeIconTest from './VSCodeIconTest';
+import VSCodeIcon from './VSCodeIcon';
 import useStore from '../stores/useStore';
 
 const ContentArea: React.FC = () => {
@@ -28,7 +28,7 @@ const ContentArea: React.FC = () => {
       case 'blog-post-2':
         return <BlogPost2 />;
       case 'icons':
-        return <VSCodeIconTest />;
+        return <VSCodeIcon />;
       default:
         return <div className="p-4">No content available for this tab</div>;
     }
