@@ -1,4 +1,3 @@
-// src/components/SideBar.tsx
 import React, { useState } from 'react';
 import useStore from '../stores/useStore';
 import { Tab } from '../types/tab';
@@ -45,10 +44,10 @@ const SideBar: React.FC = () => {
       id: 'portfolio',
       name: 'Portfolio',
       files: [
-        { id: 'home', title: 'home', extension: 'tsx', icon: '📄' },
-        { id: 'about', title: 'about-me', extension: 'md', icon: '📋' },
-        { id: 'projects', title: 'projects', extension: 'ts', icon: '🗂️' },
-        { id: 'contact', title: 'contact', extension: 'json', icon: '📧' }
+        { id: 'home', title: 'Home', extension: 'tsx', icon: '📄' },
+        { id: 'about', title: 'About-Me', extension: 'md', icon: '📋' },
+        { id: 'projects', title: 'Projects', extension: 'ts', icon: '🗂️' },
+        { id: 'contact', title: 'Contact', extension: 'json', icon: '📧' }
       ],
       isOpen: true
     },

@@ -1,4 +1,3 @@
-// src/components/Tab.tsx
 import React from 'react';
 import { Tab as TabType } from '../types/tab';
 import useStore from '../stores/useStore';

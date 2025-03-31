@@ -1,4 +1,3 @@
-// src/components/TabsContainer.tsx
 import React, { useRef, useEffect, useState } from 'react';
 import Tab from './Tab';
 import useStore from '../stores/useStore';
