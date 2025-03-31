@@ -1,4 +1,4 @@
-// src/stores/useStore.ts
+// src/stores/useStore.ts - updated version
 import { create } from 'zustand';
 import { Tab } from '../types/tab';
 
@@ -18,6 +18,7 @@ const initialTabs: Tab[] = [
   { id: 'about', title: 'About-Me', extension: 'md', icon: '📋', isActive: false },
   { id: 'projects', title: 'Projects', extension: 'ts', icon: '🗂️', isActive: false },
   { id: 'contact', title: 'Contact', extension: 'json', icon: '📧', isActive: false },
+  { id: 'icons', title: 'Icons', extension: 'tsx', icon: '🎨', isActive: false },
 ];
 
 export const useStore = create<TabState>((set) => ({

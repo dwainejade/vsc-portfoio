@@ -1,23 +1,24 @@
 import React, { useState } from 'react';
 import useStore from '../stores/useStore';
 import { Tab } from '../types/tab';
+import VSCodeIcon, { VSCodeIconName } from './VSCodeIcon';
 
-// Icons as functional components for better rendering
-const FolderIcon: React.FC<{ isOpen?: boolean }> = ({ isOpen = false }) => (
-  <span className="mr-1">{isOpen ? '📂' : '📁'}</span>
-);
+// Section enum for sidebar sections
+enum SidebarSection {
+  EXPLORER = 'explorer',
+  RECENTLY_CLOSED = 'recentlyClosed'
+}
 
-const FileIcon: React.FC<{ type: string }> = ({ type }) => {
-  // Map file extensions to appropriate icons
-  const iconMap: Record<string, string> = {
-    tsx: '📄',
-    ts: '📑',
-    md: '📋',
-    json: '📧',
-    default: '📄'
+// File type to icon name mapping
+const getFileIcon = (extension: string): VSCodeIconName => {
+  const iconMap: Record<string, VSCodeIconName> = {
+    tsx: 'code',
+    ts: 'code',
+    md: 'file-media',
+    json: 'repo'
   };
-
-  return <span className="mr-1">{iconMap[type] || iconMap.default}</span>;
+  
+  return iconMap[extension] || 'code';
 };
 
 // Folder interface
@@ -26,12 +27,6 @@ interface Folder {
   name: string;
   files: Array<Omit<Tab, 'isActive'>>;
   isOpen: boolean;
-}
-
-// Section enum for sidebar sections
-enum SidebarSection {
-  EXPLORER = 'explorer',
-  RECENTLY_CLOSED = 'recentlyClosed'
 }
 
 const SideBar: React.FC = () => {
@@ -48,6 +43,14 @@ const SideBar: React.FC = () => {
         { id: 'about', title: 'About-Me', extension: 'md', icon: '📋' },
         { id: 'projects', title: 'Projects', extension: 'ts', icon: '🗂️' },
         { id: 'contact', title: 'Contact', extension: 'json', icon: '📧' }
+      ],
+      isOpen: true
+    },
+    {
+      id: 'design',
+      name: 'Design',
+      files: [
+        { id: 'icons', title: 'Icons', extension: 'tsx', icon: '🎨' }
       ],
       isOpen: true
     },
@@ -110,7 +113,7 @@ const SideBar: React.FC = () => {
           <div className="p-2 text-sm uppercase text-[#bbbbbb] flex items-center justify-between">
             <span>Files</span>
             <span className="text-xs cursor-pointer hover:bg-[#2d2d2d] w-6 h-6 flex items-center justify-center rounded">
-              •••
+              <VSCodeIcon name="add" />
             </span>
           </div>
           
@@ -121,9 +124,12 @@ const SideBar: React.FC = () => {
                 onClick={() => toggleFolder(folder.id)}
               >
                 <span className="mr-1 w-4 inline-block">
-                  {folder.isOpen ? '▼' : '►'}
+                  <VSCodeIcon name={folder.isOpen ? 'chevron-down' : 'chevron-right'} />
                 </span>
-                <FolderIcon isOpen={folder.isOpen} />
+                <VSCodeIcon 
+                  name={folder.isOpen ? 'folder-opened' : 'folder-active'} 
+                  className="mr-1"
+                />
                 <span>{folder.name}</span>
               </div>
               
@@ -137,7 +143,10 @@ const SideBar: React.FC = () => {
                         hover:bg-[#2d2d2d]`}
                       onClick={() => handleFileClick(file)}
                     >
-                      <FileIcon type={file.extension} />
+                      <VSCodeIcon 
+                        name={getFileIcon(file.extension)} 
+                        className="mr-1"
+                      />
                       <span>{file.title}.{file.extension}</span>
                     </div>
                   ))}
@@ -154,11 +163,12 @@ const SideBar: React.FC = () => {
           <div className="p-2 text-sm uppercase text-[#bbbbbb] flex items-center justify-between">
             <span>Recently Closed</span>
             <button 
-              className="text-xs hover:bg-[#2d2d2d] px-2 py-1 rounded"
+              className="text-xs hover:bg-[#2d2d2d] px-2 py-1 rounded flex items-center"
               onClick={reopenLastClosedTab}
               disabled={recentlyClosed.length === 0}
               title="Reopen Last Closed"
             >
+              <VSCodeIcon name="cloud-upload" className="mr-1" />
               Reopen Last
             </button>
           </div>
@@ -175,7 +185,10 @@ const SideBar: React.FC = () => {
                   className="px-2 py-1 cursor-pointer flex items-center hover:bg-[#2d2d2d]"
                   onClick={() => handleFileClick(file)}
                 >
-                  <FileIcon type={file.extension} />
+                  <VSCodeIcon 
+                    name={getFileIcon(file.extension)} 
+                    className="mr-1"
+                  />
                   <span>{file.title}.{file.extension}</span>
                 </div>
               ))}
