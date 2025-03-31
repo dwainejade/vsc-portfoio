@@ -1,11 +1,13 @@
 // src/components/TabsContainer.tsx
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import Tab from './Tab';
 import useStore from '../stores/useStore';
 
 const TabsContainer: React.FC = () => {
-  const { tabs } = useStore();
+  const { tabs, reorderTabs } = useStore();
   const containerRef = useRef<HTMLDivElement>(null);
+  const [draggedTab, setDraggedTab] = useState<string | null>(null);
+  const [draggedOverTab, setDraggedOverTab] = useState<string | null>(null);
 
   useEffect(() => {
     // Scroll to the active tab when tabs change
@@ -39,11 +41,44 @@ const TabsContainer: React.FC = () => {
     }
   };
 
+  // Drag and Drop handlers
+  const handleDragStart = (id: string) => {
+    setDraggedTab(id);
+  };
+
+  const handleDragOver = (e: React.DragEvent, id: string) => {
+    e.preventDefault();
+    if (draggedTab !== id) {
+      setDraggedOverTab(id);
+    }
+  };
+
+  const handleDragEnd = () => {
+    if (draggedTab && draggedOverTab) {
+      const startIndex = tabs.findIndex(tab => tab.id === draggedTab);
+      const endIndex = tabs.findIndex(tab => tab.id === draggedOverTab);
+      
+      if (startIndex !== -1 && endIndex !== -1) {
+        reorderTabs(startIndex, endIndex);
+      }
+    }
+    
+    setDraggedTab(null);
+    setDraggedOverTab(null);
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    handleDragEnd();
+  };
+
   return (
     <div 
       ref={containerRef}
-      className="flex bg-[#2d2d2d] border-b border-black overflow-x-auto scrollbar-hide"
+      className="flex bg-[#2d2d2d] border-b border-black overflow-x-auto no-scrollbar"
       onWheel={handleWheel}
+      onDragOver={(e) => e.preventDefault()}
+      onDrop={handleDrop}
     >
       {tabs.map(tab => (
         <Tab 
@@ -54,6 +89,11 @@ const TabsContainer: React.FC = () => {
           icon={tab.icon}
           isActive={tab.isActive}
           data-active={tab.isActive}
+          isDragging={draggedTab === tab.id}
+          isDraggedOver={draggedOverTab === tab.id}
+          onDragStart={() => handleDragStart(tab.id)}
+          onDragOver={(e) => handleDragOver(e, tab.id)}
+          onDragEnd={handleDragEnd}
         />
       ))}
     </div>

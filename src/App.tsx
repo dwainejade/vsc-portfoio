@@ -16,6 +16,7 @@ function App() {
             <p className="mb-4">This is a VSCode-inspired portfolio showcasing my work and skills.</p>
             <p className="mb-4">Click on the tabs above to navigate through different sections.</p>
             <p className="mb-4">Use the sidebar explorer to browse different file sections.</p>
+            <p className="mb-4">Try dragging and rearranging tabs in any order you prefer!</p>
           </div>
         );
       case 'about':
@@ -57,16 +58,16 @@ function App() {
             <p className="mb-4">Feel free to reach out to me through any of these channels:</p>
             <ul className="space-y-2">
               <li>
-                <span className="font-semibold">Email:</span> your.email@example.com
+                <span className="font-semibold">Email:</span> 
+                <a href="mailto:dwainem.gnd@gmail.com" className="text-blue-400 hover:underline ml-1">dwainem.gnd@gmail.com</a>
               </li>
               <li>
-                <span className="font-semibold">GitHub:</span> github.com/yourusername
+                <span className="font-semibold">GitHub:</span> 
+                <a href="https://github.com/dwainejade" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline ml-1">github.com/dwainejade</a>
               </li>
               <li>
-                <span className="font-semibold">LinkedIn:</span> linkedin.com/in/yourusername
-              </li>
-              <li>
-                <span className="font-semibold">Twitter:</span> @yourusername
+                <span className="font-semibold">LinkedIn:</span> 
+                <a href="https://linkedin.com/in/dwaine-matthew" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline ml-1">linkedin.com/in/dwaine-matthew</a>
               </li>
             </ul>
           </div>
@@ -98,7 +99,7 @@ function App() {
     <div className="flex flex-col h-screen bg-[#1e1e1e] text-[#d4d4d4] font-mono">
       {/* Title Bar */}
       <div className="h-8 bg-[#1e1e1e] border-b border-black flex items-center px-4 text-xs">
-        VSCode Portfolio - Your Name
+        VSCode Portfolio - Dwaine Matthew
       </div>
       
       {/* Tabs Container */}
@@ -113,6 +114,16 @@ function App() {
         <div className="flex-1 overflow-auto">
           {renderContent()}
         </div>
+      </div>
+      
+      {/* Status Bar */}
+      <div className="h-6 bg-[#007acc] flex items-center px-4 text-xs text-white">
+        <span className="mr-4">Ln 1, Col 1</span>
+        <span className="mr-4">TypeScript</span>
+        <span className="mr-4">UTF-8</span>
+        <span className="mr-4">2 spaces</span>
+        <div className="flex-1"></div>
+        <span>Made with React & TypeScript</span>
       </div>
     </div>
   );

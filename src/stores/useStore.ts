@@ -10,6 +10,7 @@ interface TabState {
   closeTab: (tabId: string) => void;
   openTab: (tab: Omit<Tab, 'isActive'>) => void;
   reopenLastClosedTab: () => void;
+  reorderTabs: (startIndex: number, endIndex: number) => void;
 }
 
 const initialTabs: Tab[] = [
@@ -87,6 +88,16 @@ export const useStore = create<TabState>((set) => ({
         })
       };
     }
+  }),
+  
+  reorderTabs: (startIndex: number, endIndex: number) => set((state) => {
+    const newTabs = [...state.tabs];
+    const [removed] = newTabs.splice(startIndex, 1);
+    newTabs.splice(endIndex, 0, removed);
+    
+    return {
+      tabs: newTabs
+    };
   }),
   
   reopenLastClosedTab: () => set((state) => {
