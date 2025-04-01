@@ -1,5 +1,6 @@
 // src/components/content/AboutContent.tsx
 import React from 'react';
+import VSCodeIcon from '../VSCodeIcon';
 
 const AboutContent: React.FC = () => {
   return (
