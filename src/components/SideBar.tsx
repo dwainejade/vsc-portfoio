@@ -99,12 +99,12 @@ const SideBar: React.FC = () => {
         >
           EXPLORER
         </div>
-        <div 
+        {/* <div 
           className={`px-4 py-2 text-xs cursor-pointer ${activeSection === SidebarSection.RECENTLY_CLOSED ? 'border-b-2 border-[#007acc]' : ''}`}
           onClick={() => switchSection(SidebarSection.RECENTLY_CLOSED)}
         >
           RECENTLY CLOSED
-        </div>
+        </div> */}
       </div>
       
       {/* Explorer Section */}
