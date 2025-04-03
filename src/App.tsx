@@ -1,22 +1,32 @@
+// src/App.tsx
 import TitleBar from './components/TitleBar';
 import TabsContainer from './components/TabsContainer';
 import ContentArea from './components/ContentArea';
 import StatusBar from './components/StatusBar';
+import BackgroundManager from './components/BackgroundManager';
 
 function App() {
   return (
-    <div className="flex flex-col h-screen bg-[#1e1e1e] text-[#d4d4d4] font-mono">
-      {/* Title Bar */}
-      <TitleBar name="Dwaine Matthew" />
+    <div className="relative min-h-screen overflow-hidden">
+      {/* Background layer (fixed position, behind everything) */}
+      <div className="fixed inset-0 -z-10">
+        <BackgroundManager />
+      </div>
       
-      {/* Tabs Container */}
-      <TabsContainer />
-      
-      {/* Main Content Area */}
-      <ContentArea />
-      
-      {/* Status Bar */}
-      <StatusBar />
+      {/* Content layer (above background) */}
+      <div className="relative flex flex-col h-screen font-mono">
+        {/* Title Bar */}
+        <TitleBar name="Dwaine Matthew" />
+        
+        {/* Tabs Container */}
+        <TabsContainer />
+        
+        {/* Main Content Area */}
+        <ContentArea />
+        
+        {/* Status Bar */}
+        <StatusBar />
+      </div>
     </div>
   );
 }

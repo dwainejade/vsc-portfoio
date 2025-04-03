@@ -15,9 +15,9 @@ interface TabState {
 
 const initialTabs: Tab[] = [
   { id: 'home', title: 'Home', extension: 'tsx', icon: '📄', isActive: true },
-  { id: 'about', title: 'About-Me', extension: 'md', icon: '📋', isActive: false },
   { id: 'projects', title: 'Projects', extension: 'ts', icon: '🗂️', isActive: false },
-  { id: 'contact', title: 'Contact', extension: 'json', icon: '📧', isActive: false },
+  { id: 'about', title: 'About-Me', extension: 'md', icon: '📋', isActive: false },
+  // { id: 'contact', title: 'Contact', extension: 'json', icon: '📧', isActive: false },
 ];
 
 export const useStore = create<TabState>((set) => ({
