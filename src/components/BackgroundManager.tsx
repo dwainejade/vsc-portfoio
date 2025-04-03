@@ -17,7 +17,7 @@ const BackgroundManager: React.FC = () => {
   return (
     <ShowerGlassCircles
       width="100%"
-      height="1000px"
+      height="100%"
       backgroundColor={currentConfig.backgroundColor}
       glassBlur={currentConfig.glassBlur}
       glassOpacity={currentConfig.glassOpacity}
