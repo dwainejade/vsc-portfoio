@@ -1,11 +1,11 @@
 import React from 'react';
 import SideBar from './SideBar';
-import HomeContent from './content/HomeContent';
-import AboutContent from './content/AboutContent';
-import ProjectsContent from './content/ProjectsContent';
-import ContactContent from './content/ContactContent';
-import BlogPost1 from './content/BlogPost1';
-import BlogPost2 from './content/BlogPost2';
+import HomeContent from './content/HomeContent.tsx';
+import AboutContent from './content/AboutContent.tsx';
+import ProjectsContent from './content/ProjectsContent.tsx';
+import ContactContent from './content/ContactContent.tsx';
+import BlogPost1 from './content/BlogPost1.tsx';
+import BlogPost2 from './content/BlogPost2.tsx';
 import useStore from '../stores/useStore';
 
 const ContentArea: React.FC = () => {
@@ -35,11 +35,13 @@ const ContentArea: React.FC = () => {
     <div className="flex flex-1 overflow-hidden">
       {/* Sidebar */}
       <SideBar />
-      
+     
       {/* Content */}
       <div className="flex-1 overflow-auto">
         {renderContent()}
       </div>
+
+      
     </div>
   );
 };

@@ -45,9 +45,9 @@ const SideBar: React.FC = () => {
       name: 'Portfolio',
       files: [
         { id: 'home', title: 'Home', extension: 'tsx', icon: '📄' },
-        { id: 'about', title: 'About-Me', extension: 'md', icon: '📋' },
         { id: 'projects', title: 'Projects', extension: 'ts', icon: '🗂️' },
-        { id: 'contact', title: 'Contact', extension: 'json', icon: '📧' }
+        { id: 'about', title: 'About-Me', extension: 'md', icon: '📋' },
+        // { id: 'contact', title: 'Contact', extension: 'json', icon: '📧' }
       ],
       isOpen: true
     },
