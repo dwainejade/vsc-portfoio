@@ -15,25 +15,33 @@ interface BackgroundConfig {
 // Define configurations for each page
 const backgroundConfigs: Record<string, BackgroundConfig> = {
   home: {
-    backgroundColor: '#222',
+    backgroundColor: '#061626',
     glassBlur: 80,
-    glassOpacity: 0.2,
+    glassOpacity: 0.5,
     predefinedCircles: [
       {
-        x: '30%',
+        x: '80%',
         y: '40%',
-        radius: 180,
+        radius: 160,
         color: '#3b82f6', // Blue
         opacity: 0.6,
-        blurAmount: 60
+        blurAmount: 160
       },
       {
         x: '70%',
-        y: '60%',
-        radius: 100,
+        y: '65%',
+        radius: 80,
         color: '#8b5cf6', // Purple
         opacity: 0.5,
         blurAmount: 70
+      },
+      {
+        x: '90%',
+        y: '45%',
+        radius: 120,
+        color: '#8b5cff', // Purple
+        opacity: 0.8,
+        blurAmount: 60
       }
     ]
   },
@@ -44,7 +52,7 @@ const backgroundConfigs: Record<string, BackgroundConfig> = {
     glassOpacity: 0.15,
     predefinedCircles: [
       {
-        x: '25%',
+        x: '95%',
         y: '30%',
         radius: 160,
         color: '#22c55e', // Green
@@ -68,7 +76,7 @@ const backgroundConfigs: Record<string, BackgroundConfig> = {
     glassOpacity: 0.15,
     predefinedCircles: [
       {
-        x: '20%',
+        x: '70%',
         y: '60%',
         radius: 150,
         color: '#f59e0b', // Amber

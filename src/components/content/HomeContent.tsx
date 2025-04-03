@@ -75,7 +75,7 @@ const HomeContent: React.FC = () => {
   }, []);
 
   return (
-    <div className="flex h-full vscode-bg">
+    <div className="flex h-full ">
       <div className="p-8 font-mono text-left max-w-3xl w-full">
         <div className="mb-6 vscode-text">
           <p className="mb-4 opacity-80">Hi all. I am</p>
