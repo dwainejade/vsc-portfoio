@@ -18,18 +18,18 @@ const projects: Project[] = [
     title: "MetroTopia: City Builder",
     codeName: "_city-builder",
     imageUrl: "/assets/images/metro_1.jpg",
-    description: "A full-stack food delivery application clone with user authentication, restaurant browsing, and order management features. Built as part of a development bootcamp.",
-    technologies: ["React", "Node.js", "Express", "MongoDB"],
+    description: "An educational interactive app designed to help students understand the environmental impacts of urbanization. This SimCity-like experience allows users to build and manage cities while learning about sustainable development, pollution effects, and urban planning. Features include realistic sound effects and dynamic environmental feedback.",
+    technologies: ["React", "Three.js", "Zustand", "Howler.js", "Framer Motion"],
     githubUrl: "https://github.com/dwainejade/metrotopia",
     demoUrl: "https://interactives.strongmind.com/city-builder-interactive/build/aag"
   },
   {
     id: 2,
-    title: "Solar System Sim",
+    title: "Solar System Simulator",
     codeName: "_solar",
     imageUrl: "/assets/images/solar_system_1.jpg",
-    description: "A responsive e-commerce website clone for digital fashion and collectibles. Features product showcases, shopping cart functionality, and payment integration.",
-    technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Stripe"],
+    description: "An immersive 3D solar system simulation for astronomy education. Explore planets and their major moons in detail, with accurate orbital mechanics. Features include a vast asteroid belt comprising thousands of meshes, interactive planet info panels showing mass, orbital speed, and eccentricity, and the ability to adjust planetary distances to visualize gravitational effects on orbital periods.",
+    technologies: ["React", "Three.js", "Zustand", "WebGL", "React Three Fiber"],
     demoUrl: "https://devinteractives.strongmind.com/solar-system-interactive/main/"
   },
   {
@@ -37,20 +37,20 @@ const projects: Project[] = [
     title: "Geometry Solver",
     codeName: "_geometry",
     imageUrl: "/assets/images/geometry_1.png",
-    description: "A Discord bot that monitors and relays messages between servers. Built as a personal project for community management and cross-server coordination.",
-    technologies: ["JavaScript", "Discord.js", "Node.js", "WebSockets"],
+    description: "An interactive geometry learning tool that helps students visualize and solve geometric problems. Users can create, manipulate, and analyze shapes while the application provides step-by-step solutions and explanations. Perfect for understanding spatial relationships and geometric principles in an engaging environment.",
+    technologies: ["JavaScript", "React", "Canvas API", "Mathematics Libraries"],
     demoUrl: "https://devinteractives.strongmind.com/geometry-interactive/mix/hybrid",
-    githubUrl: "https://github.com/username/alpha-spy"
+    githubUrl: "https://github.com/username/geometry-solver"
   },
   {
     id: 4,
-    title: "Stock Market Game",
+    title: "Stock Market Simulator",
     codeName: "_stocks",
     imageUrl: "/assets/images/stocks_1.png",
-    description: "This VSCode-themed portfolio website built with React and TypeScript. Features tab navigation, file explorer, and a realistic IDE experience.",
-    technologies: ["React", "TypeScript", "Tailwind CSS", "Zustand"],
+    description: "A financial literacy educational game that teaches students about stock market investing. The simulator generates realistic market movements using algorithmic modeling. Players can invest virtual funds, track portfolio performance, and fast-forward through market cycles in 3-month increments. Learn investment strategies, risk management, and market analysis in a safe, gamified environment.",
+    technologies: ["TypeScript", "React", "Zustand", "Recharts", "Financial Algorithms"],
     demoUrl: "https://devinteractives.strongmind.com/stock-market-sim/",
-    githubUrl: "https://github.com/username/vscode-portfolio"
+    githubUrl: "https://github.com/username/stock-market-simulator"
   }
 ];
 
@@ -98,14 +98,16 @@ const ProjectsContent: React.FC = () => {
             </div>
             
             <div className="px-6 py-4 flex gap-4 border-t border-[#3c3c3c]">
-              <a 
-                href={project.githubUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block px-4 py-2 bg-[#2d2d2d] hover:bg-[#3e3e3e] text-[#d4d4d4] rounded-md text-sm transition-colors"
-              >
-                view-project-on-github
-              </a>
+              {project.githubUrl && (
+                <a 
+                  href={project.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block px-4 py-2 bg-[#2d2d2d] hover:bg-[#3e3e3e] text-[#d4d4d4] rounded-md text-sm transition-colors"
+                >
+                  view-project-on-github
+                </a>
+              )}
               
               {project.demoUrl && (
                 <a 
