@@ -8,7 +8,7 @@ const AboutContent: React.FC = () => {
       
       <section className="mb-8">
         <p className="mb-4 text-gray-200 leading-relaxed">
-          Hey there! I'm Dwaine, a Front-End Developer based in Brooklyn, where I was born and raised. Growing up in Brooklyn's inner city, I was a decent student but never considered myself exceptional except in math. Despite that aptitude, programming wasn't on my radar—I still remember struggling with logic gates on a breadboard in high school and thinking, "This isn't for me."
+        Hi, I’m Dwaine Matthew, a frontend developer with a deep-rooted passion for technology that goes all the way back to my childhood. I’ve always been curious about how things work under the hood—so much so that I used to poke around in system files on our old family desktop just to see what would happen. More often than not, I’d break something, whether it was a program or the whole boot process—but I’d always find a way to fix it. That mix of curiosity, problem-solving, and a bit of chaos is what sparked my journey into tech, and it still fuels how I approach development today.
         </p>
         
         <p className="mb-4 text-gray-200 leading-relaxed">

@@ -40,7 +40,7 @@ const projects: Project[] = [
     description: "An interactive geometry learning tool that helps students visualize and solve geometric problems. Users can create, manipulate, and analyze shapes while the application provides step-by-step solutions and explanations. Perfect for understanding spatial relationships and geometric principles in an engaging environment.",
     technologies: ["JavaScript", "React", "Canvas API", "Mathematics Libraries"],
     demoUrl: "https://devinteractives.strongmind.com/geometry-interactive/mix/hybrid",
-    githubUrl: "https://github.com/username/geometry-solver"
+    // githubUrl: "https://github.com/username/geometry-solver"
   },
   {
     id: 4,
@@ -50,7 +50,17 @@ const projects: Project[] = [
     description: "A financial literacy educational game that teaches students about stock market investing. The simulator generates realistic market movements using algorithmic modeling. Players can invest virtual funds, track portfolio performance, and fast-forward through market cycles in 3-month increments. Learn investment strategies, risk management, and market analysis in a safe, gamified environment.",
     technologies: ["TypeScript", "React", "Zustand", "Recharts", "Financial Algorithms"],
     demoUrl: "https://devinteractives.strongmind.com/stock-market-sim/",
-    githubUrl: "https://github.com/username/stock-market-simulator"
+    // githubUrl: "https://github.com/username/stock-market-simulator"
+  },
+  {
+    id: 5,
+    title: "Algebra Solver",
+    codeName: "_algebra",
+    imageUrl: "/assets/images/algebra_1.png",
+    description: "An interactive algebra learning tool that helps students visualize and solve algebraic problems. Users can create, manipulate, and analyze equations while the application provides step-by-step solutions and explanations. Perfect for understanding algebraic principles in an engaging environment.",
+    technologies: ["TypeScript", "React", "Zustand", "Recharts",],
+    demoUrl: "https://devinteractives.strongmind.com/algebra-interactive/public/algebra/linear-equations-one-hybrid/",
+    // githubUrl: "https://github.com/username/stock-market-simulator"
   }
 ];
 
